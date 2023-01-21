@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.js';
 import Pokedex from './pages/Pokedex.js';
+import './style.css'; 
 
 class App extends Component {
 

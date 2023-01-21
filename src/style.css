@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    @apply m-0 p-0 box-border
+}
+html, body, #root {
+    height: 100%;
+}
+
+@layer components {
+    .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+}
