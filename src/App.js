@@ -12,7 +12,6 @@ class App extends Component {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/dex" element={<Pokedex />} />
-                        <Route path="/*" element={<Pokedex />} />
                     </Routes>
                 </Router>
             </React.StrictMode>
