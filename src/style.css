@@ -3,10 +3,16 @@
 @tailwind utilities;
 
 * {
-    @apply m-0 p-0 box-border
+    @apply m-0 p-0 box-border outline-double
 }
 html, body, #root {
     height: 100%;
+}
+.bg-dex-1 {
+    background-color: #FB7248;
+}
+.bg-dex-2 {
+    background-color: #F5523B;
 }
 
 @layer components {
@@ -15,5 +21,15 @@ html, body, #root {
         justify-content: center;
         align-items: center;
         height: 100%;
+    }
+    .dex {
+        @apply sm:absolute sm:right-0 sm:h-full sm:skew-x-[-25deg] sm:origin-bottom sm:w-3/5 relative
+    }
+    .dexContent {
+        @apply flex sm:absolute sm:right-0  sm:bottom-0 sm:flex-col sm:h-3/5;
+        
+    }
+    .dexEntry {
+        @apply bg-green-400 flex justify-center
     }
 }
