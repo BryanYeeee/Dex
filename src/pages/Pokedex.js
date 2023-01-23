@@ -14,8 +14,9 @@ function Pokedex(props) {
     });
 
     let getContentWidth = React.useCallback((dexBg) => {
-        if (dexBg) setWidth(dexBg.clientWidth - dexBg.clientHeight * 0.6 / Math.tan(65 * 0.0174533))
+        if (dexBg) setWidth(dexBg.clientWidth - dexBg.clientHeight * 0.8 / Math.tan(65 * 0.0174533))
     }, [dimensions])
+
 
     React.useEffect(() => {
         window.addEventListener("resize", () => {
@@ -24,16 +25,28 @@ function Pokedex(props) {
                 height: window.innerHeight,
             });
         }, false);
-        fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+        fetchData();
+    }, [])
+    let fetchData = () => {
+        fetch("https://pokeapi.co/api/v2/pokemon?limit=12&offset=0")
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result)
-                    setFetched({
-                        error: null,
-                        loaded: true
+                    result = result.results
+                    let individualPoke = []
+                    for (let i = 0; i < result.length; i++) {
+                        individualPoke.push(fetch(result[i].url)
+                            .then(res => res.json())
+                            .then(res => {
+                                result[i].pokemon = res
+                            }))
+                    }
+                    Promise.all(individualPoke).then(() => {
+                        setPokemon(result)
+                        setFetched({
+                            loaded: true
+                        })
                     })
-                    setPokemon(result.results)
                 },
                 (error) => {
                     setFetched({
@@ -42,16 +55,17 @@ function Pokedex(props) {
                     })
                 }
             )
-    }, [])
+
+    }
 
     if (isFetched.error) {
         return <div>Error: {isFetched.error.message}</div>;
     } else if (!isFetched.loaded) {
         return <div>Loading...</div>;
     }
-    console.log(pokemon)
+    console.log(pokemon[0])
     return (
-        <div className="h-full w-full">
+        <div className="h-full w-full overflow-hidden">
             <div className='dex' ref={getContentWidth}>
                 <div className='absolute left-0 bottom-0 bg-dex-2 h-full w-28' />
                 <div className="w-full h-full bg-dex-1" />
@@ -59,13 +73,18 @@ function Pokedex(props) {
             <div className="dexContent" style={{
                 width: contentWidth
             }}>
-                <ul className="overflow-auto h-full">
+                <div className="dexEntries">
                     {pokemon.map((item, index) => (
-                        <li key={index} className="dexEntry">
-                            {item.name}
-                        </li>
+                        <div key={index} className="dexEntry md:text-2xl text-base">
+                            <div/>
+                            <div><img className="dexSprite" src={item.pokemon.sprites.front_default} /></div>
+                            <div className="text-sm text-subfont">No. {item.pokemon.id}</div>
+                            <div>{item.name.toUpperCase()}</div>
+                            <div/>
+
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </div >
     )

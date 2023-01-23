@@ -8,14 +8,14 @@ class App extends Component {
 
     render() {
         return (
-            <React.StrictMode>
+            // <React.StrictMode>
                 <Router>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/dex" element={<Pokedex />} />
                     </Routes>
                 </Router>
-            </React.StrictMode>
+            //</React.StrictMode>
         )
     }
 }

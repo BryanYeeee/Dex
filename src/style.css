@@ -1,18 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua&family=Press+Start+2P&display=swap');
 
 * {
-    @apply m-0 p-0 box-border outline-double
+    @apply m-0 p-0 box-border
 }
 html, body, #root {
-    height: 100%;
+    @apply text-mainfont h-full
 }
 .bg-dex-1 {
-    background-color: #FB7248;
+    @apply bg-dex1
 }
 .bg-dex-2 {
-    background-color: #F5523B;
+    @apply bg-dex2
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    display: none 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-subfont rounded-full
 }
 
 @layer components {
@@ -23,13 +38,25 @@ html, body, #root {
         height: 100%;
     }
     .dex {
-        @apply sm:absolute sm:right-0 sm:h-full sm:skew-x-[-25deg] sm:origin-bottom sm:w-3/5 relative
+        @apply md:absolute md:right-0 md:h-full md:skew-x-[-25deg] md:origin-bottom md:w-3/5 relative
     }
     .dexContent {
-        @apply flex sm:absolute sm:right-0  sm:bottom-0 sm:flex-col sm:h-3/5;
+        @apply flex md:absolute md:right-0  md:bottom-0 md:flex-col md:h-4/5 pr-2;
         
     }
+    .dexEntries {
+        @apply flex flex-col overflow-auto h-full gap-[1.5%] pr-2 pl-2;
+        font-family: 'Press Start 2P', cursive;
+
+    }
     .dexEntry {
-        @apply bg-green-400 flex justify-center
+        @apply grid min-h-[11%] rounded-3xl bg-entrybg;
+        grid-template-columns: 5% 11% 25% 44% 5%;
+    }
+    .dexEntry div {
+        @apply flex justify-center items-center 
+    }
+    .dexSprite {
+        @apply max-h-full max-w-full justify-self-start
     }
 }
